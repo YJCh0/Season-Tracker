@@ -4,10 +4,12 @@
     "파일명_규칙": "게임 로고: {gameId}.png  /  패치·시즌별 로고: {itemId}.png  /  없으면 null",
     "날짜_형식": "ISO 8601 — 예: 2026-04-28T00:00:00Z  /  미발표·미확정은 null",
     "endIsEstimate": "true = 추정치 표시, false = 확정",
-    "최종_업데이트": "2026-07-12 기준",
+    "최종_업데이트": "2026-07-24 기준",
     "sourceType": "official = 공식 사이트, community = 커뮤니티/팬사이트 (Wowhead, Maxroll 등)",
     "starterBuildUrl": "리그/시즌 참고 사이트 링크 (빌드 가이드, 메타 통계, 로그 사이트 등) — 없으면 null",
-    "buildLabel": "starterBuildUrl 버튼에 표시할 텍스트, 없으면 기본값 '빌드 가이드 ↗' 사용"
+    "buildLabel": "starterBuildUrl 버튼에 표시할 텍스트, 없으면 기본값 '빌드 가이드 ↗' 사용",
+    "참고": "Overwatch 2는 2026년 2월 공식 리브랜딩으로 'Overwatch'가 되었으나, 내부 id는 호환성을 위해 'ow2'를 유지합니다.",
+    "estimate": "startDate가 아직 없지만 커뮤니티/공식 추정 시점이 있는 경우 표시하는 텍스트. 실제 날짜가 아니라 참고용이며 진행률 계산에는 쓰이지 않음. 완전 미확정이면 null."
   },
   "games": [
     {
@@ -19,7 +21,7 @@
       "accentColor": "#c0392b",
       "glowColor": "rgba(192,57,43,0.35)",
       "bgColor": "#1a0a0a",
-      "patch": "v3.1.0c",
+      "patch": "v3.1.1a",
       "label": "S14 · Season of Death Awakening",
       "startDate": "2026-06-30T17:00:00Z",
       "endDate": null,
@@ -33,12 +35,13 @@
           "icon": "💀",
           "logo": "d4-s13.png",
           "startDate": "2026-04-28T00:00:00Z",
-          "endDate": "2026-06-30T00:00:00Z",
+          "endDate": "2026-07-20T00:00:00Z",
           "endIsEstimate": false,
           "note": "Lord of Hatred 확장팩 · 신규 클래스 Warlock",
           "patchUrl": "https://news.blizzard.com/en-us/article/24271857/diablo-iv-patch-notes",
           "sourceType": "official",
-          "starterBuildUrl": null
+          "starterBuildUrl": null,
+          "estimate": null
         },
         {
           "id": "d4-s14",
@@ -49,11 +52,12 @@
           "startDate": "2026-06-30T17:00:00Z",
           "endDate": null,
           "endIsEstimate": false,
-          "note": "Pandemonium Ruptures · Mythic Unique 3.0 · SSF · 3.1.1 핫픽스 7/14 예정",
+          "note": "Pandemonium Ruptures · Mythic Unique 3.0 · 3.1.1/3.1.1a로 Mythic 드랍률 개선",
           "patchUrl": "https://news.blizzard.com/en-us/article/24268702/hunt-the-death-cult-in-season-of-death-awakening",
           "sourceType": "official",
           "starterBuildUrl": "https://maxroll.gg/d4/tierlist/build-tier-list",
-          "buildLabel": "빌드 가이드 ↗"
+          "buildLabel": "빌드 가이드 ↗",
+          "estimate": null
         },
         {
           "id": "d4-s15",
@@ -64,10 +68,11 @@
           "startDate": null,
           "endDate": null,
           "endIsEstimate": false,
-          "note": "9~10월 예상 · 이름·날짜 미발표",
+          "note": "이름·정확한 날짜 미발표",
           "patchUrl": null,
           "sourceType": null,
-          "starterBuildUrl": null
+          "starterBuildUrl": null,
+          "estimate": "9~10월 예상"
         }
       ]
     },
@@ -125,10 +130,11 @@
           "startDate": null,
           "endDate": null,
           "endIsEstimate": false,
-          "note": "8월 말~9월 초 예상 · 미확정",
+          "note": "정확한 날짜 미확정",
           "patchUrl": null,
           "sourceType": null,
-          "starterBuildUrl": null
+          "starterBuildUrl": null,
+          "estimate": "8월 말~9월 초 예상"
         }
       ]
     },
@@ -141,10 +147,10 @@
       "accentColor": "#8e44ad",
       "glowColor": "rgba(142,68,173,0.35)",
       "bgColor": "#0e0813",
-      "patch": "v3.28",
-      "label": "3.28 · Mirage",
-      "startDate": "2026-03-06T21:00:00Z",
-      "endDate": "2026-07-24T20:00:00Z",
+      "patch": "v3.29",
+      "label": "3.29 · Curse of the Allflame",
+      "startDate": "2026-07-24T20:00:00Z",
+      "endDate": null,
       "endIsEstimate": false,
       "roadmapLabel": "리그 로드맵",
       "items": [
@@ -155,13 +161,14 @@
           "icon": "🔮",
           "logo": "poe1-328.png",
           "startDate": "2026-03-06T21:00:00Z",
-          "endDate": "2026-07-24T20:00:00Z",
+          "endDate": "2026-07-20T22:00:00Z",
           "endIsEstimate": false,
           "note": "Djinn·Wish 메커닉, Reliquarian",
           "patchUrl": "https://www.pathofexile.com/forum/view-forum/patch-notes",
           "sourceType": "official",
           "starterBuildUrl": "https://maxroll.gg/poe/tierlist/starter-builds",
-          "buildLabel": "빌드 가이드 ↗"
+          "buildLabel": "빌드 가이드 ↗",
+          "estimate": null
         },
         {
           "id": "poe1-ancestors",
@@ -175,21 +182,39 @@
           "note": "Trial of the Ancestors 부활 · Phrecian 어센던시",
           "patchUrl": "https://www.pathofexile.com/forum/view-thread/3968867",
           "sourceType": "official",
-          "starterBuildUrl": null
+          "starterBuildUrl": null,
+          "estimate": null
         },
         {
           "id": "poe1-329",
           "name": "Curse of the Allflame",
-          "sub": "다음 리그",
+          "sub": "3.29 리그 · 현재",
           "icon": "⚡",
           "logo": null,
           "startDate": "2026-07-24T20:00:00Z",
           "endDate": null,
           "endIsEstimate": false,
-          "note": "7월 24일 확정 · 심해·저주 테마 · GGG Live 7/16 공개",
+          "note": "심해 탐사 Voyage · Mercenaries of Trarthus 코어화 · Abyss/Legion/소켓 개편",
+          "patchUrl": "https://www.pathofexile.com/forum/view-forum/patch-notes",
+          "sourceType": "official",
+          "starterBuildUrl": null,
+          "estimate": null
+        },
+        {
+          "id": "poe1-330",
+          "name": "3.30 리그",
+          "sub": "다음 리그",
+          "icon": "❓",
+          "logo": null,
+          "startDate": null,
+          "endDate": null,
+          "endIsEstimate": false,
+          "note": "날짜·이름 미발표",
           "patchUrl": null,
           "sourceType": null,
-          "starterBuildUrl": null
+          "starterBuildUrl": null,
+          "buildLabel": null,
+          "estimate": null
         }
       ]
     },
@@ -233,10 +258,11 @@
           "startDate": null,
           "endDate": null,
           "endIsEstimate": false,
-          "note": "2026년 12월 확정 · 무료 전환(F2P) · ExileCon 2026(11월) 전체 공개 예정",
+          "note": "무료 전환(F2P) · ExileCon 2026(11월) 전체 공개 예정 · 정확한 일자 미발표",
           "patchUrl": null,
           "sourceType": null,
-          "starterBuildUrl": null
+          "starterBuildUrl": null,
+          "estimate": "2026년 12월"
         }
       ]
     },
@@ -252,8 +278,8 @@
       "patch": "v12.0.7",
       "label": "Midnight S1 — Revelations",
       "startDate": "2026-03-17T15:00:00Z",
-      "endDate": "2026-08-20T15:00:00Z",
-      "endIsEstimate": true,
+      "endDate": null,
+      "endIsEstimate": false,
       "roadmapLabel": "레이드 로드맵",
       "items": [
         {
@@ -263,8 +289,8 @@
           "icon": "🌑",
           "logo": "wow-voidspire.png",
           "startDate": "2026-03-17T15:00:00Z",
-          "endDate": "2026-08-20T15:00:00Z",
-          "endIsEstimate": true,
+          "endDate": null,
+          "endIsEstimate": false,
           "note": "Xal'atath 직접 대면",
           "patchUrl": "https://www.wowhead.com/guide/raids/the-voidspire/overview",
           "sourceType": "community",
@@ -278,8 +304,8 @@
           "icon": "🌌",
           "logo": "wow-dreamrift.png",
           "startDate": "2026-03-17T15:00:00Z",
-          "endDate": "2026-08-20T15:00:00Z",
-          "endIsEstimate": true,
+          "endDate": null,
+          "endIsEstimate": false,
           "note": "Chimaerus, the Undreamt God",
           "patchUrl": "https://www.wowhead.com/guide/raids/the-dreamrift/overview",
           "sourceType": "community",
@@ -293,8 +319,8 @@
           "icon": "🌅",
           "logo": "wow-quel.png",
           "startDate": "2026-03-31T15:00:00Z",
-          "endDate": "2026-08-20T15:00:00Z",
-          "endIsEstimate": true,
+          "endDate": null,
+          "endIsEstimate": false,
           "note": "Sunwell 수호 · 12.0.7 Revelations",
           "patchUrl": "https://www.wowhead.com/guide/raids/march-on-queldanas/overview",
           "sourceType": "community",
@@ -307,14 +333,15 @@
           "sub": "S2 레이드 · 8보스",
           "icon": "🐍",
           "logo": "wow-venomous.png",
-          "startDate": "2026-08-27T15:00:00Z",
+          "startDate": null,
           "endDate": null,
           "endIsEstimate": false,
-          "note": "12.1 Curse of Ula'tek · 선행퀘 7/7 시작됨 · 패치 본편 8월 유력(8/11 다수 추정)",
+          "note": "12.1 Curse of Ula'tek · 선행퀘 7/7 시작됨 · 정확한 날짜는 미확정",
           "patchUrl": "https://www.wowhead.com/news",
           "sourceType": "community",
           "starterBuildUrl": "https://www.archon.gg/wow/tier-list/dps-rankings/raid/mythic/all-bosses",
-          "buildLabel": "DPS 티어리스트 ↗"
+          "buildLabel": "DPS 티어리스트 ↗",
+          "estimate": "8월 11일 유력"
         }
       ]
     },
@@ -347,7 +374,8 @@
           "patchUrl": "https://hearthstone.blizzard.com/en-us/news/patch-notes",
           "sourceType": "official",
           "starterBuildUrl": "https://www.hsguru.com/meta?format=2&rank=top_legend",
-          "buildLabel": "메타 통계 ↗"
+          "buildLabel": "메타 통계 ↗",
+          "estimate": null
         },
         {
           "id": "hs-violet",
@@ -362,7 +390,8 @@
           "patchUrl": "https://hearthstone.blizzard.com/en-us/news/24287396/36-0-patch-notes",
           "sourceType": "official",
           "starterBuildUrl": "https://www.hsguru.com/meta?format=2&rank=top_legend",
-          "buildLabel": "메타 통계 ↗"
+          "buildLabel": "메타 통계 ↗",
+          "estimate": null
         },
         {
           "id": "hs-exp3",
@@ -376,7 +405,8 @@
           "note": "날짜·이름 미발표",
           "patchUrl": null,
           "sourceType": null,
-          "starterBuildUrl": null
+          "starterBuildUrl": null,
+          "estimate": null
         }
       ]
     },
@@ -408,7 +438,8 @@
           "note": "GSL Season 1·2 진행 · Legacy of the Void",
           "patchUrl": "https://news.blizzard.com/en-us/starcraft2",
           "sourceType": "official",
-          "starterBuildUrl": null
+          "starterBuildUrl": null,
+          "estimate": null
         },
         {
           "id": "sc2-5016",
@@ -422,7 +453,8 @@
           "note": "시작 일꾼 12→8 · Warpgate 개편 · 6/30 밸런스 핫픽스",
           "patchUrl": "https://news.blizzard.com/en-us/starcraft2",
           "sourceType": "official",
-          "starterBuildUrl": null
+          "starterBuildUrl": null,
+          "estimate": null
         },
         {
           "id": "sc2-next",
@@ -436,14 +468,15 @@
           "note": "날짜 미발표",
           "patchUrl": null,
           "sourceType": null,
-          "starterBuildUrl": null
+          "starterBuildUrl": null,
+          "estimate": null
         }
       ]
     },
     {
       "id": "ow2",
-      "name": "Overwatch 2",
-      "shortName": "OW2",
+      "name": "Overwatch",
+      "shortName": "OW",
       "icon": "🎯",
       "logo": "ow2.png",
       "accentColor": "#f97316",
@@ -507,10 +540,11 @@
           "startDate": null,
           "endDate": null,
           "endIsEstimate": false,
-          "note": "8월 11일 시즌3 종료 직후 전환 예상 · 정확한 날짜 미발표",
+          "note": "시즌3 종료 직후 전환 예상 · 정확한 날짜 미발표",
           "patchUrl": null,
           "sourceType": null,
-          "starterBuildUrl": null
+          "starterBuildUrl": null,
+          "estimate": "8월 11일 이후"
         }
       ]
     },
@@ -554,10 +588,11 @@
           "startDate": null,
           "endDate": null,
           "endIsEstimate": false,
-          "note": "8월 말~9월 초 예상(미확정) · Last Epoch: Orobyss 확장 예고",
+          "note": "Last Epoch: Orobyss 확장 예고 · 정확한 날짜 미확정",
           "patchUrl": null,
           "sourceType": null,
-          "starterBuildUrl": null
+          "starterBuildUrl": null,
+          "estimate": "8월 말~9월 초 예상"
         }
       ]
     },
@@ -570,10 +605,10 @@
       "accentColor": "#16a085",
       "glowColor": "rgba(22,160,133,0.35)",
       "bgColor": "#051a15",
-      "patch": "SS12",
-      "label": "SS12 · Lunaria",
-      "startDate": "2026-04-17T02:00:00Z",
-      "endDate": "2026-07-17T02:00:00Z",
+      "patch": "SS13",
+      "label": "SS13 · Afterlight",
+      "startDate": "2026-07-17T02:00:00Z",
+      "endDate": null,
       "endIsEstimate": false,
       "roadmapLabel": "시즌 로드맵",
       "items": [
@@ -590,12 +625,13 @@
           "patchUrl": "https://torchlight.xd.com/us/news/list",
           "sourceType": "official",
           "starterBuildUrl": "https://tlidb.com/",
-          "buildLabel": "빌드 DB ↗"
+          "buildLabel": "빌드 DB ↗",
+          "estimate": null
         },
         {
           "id": "tli-afterlight",
           "name": "Afterlight",
-          "sub": "SS13 · 다음 시즌",
+          "sub": "SS13 · 현재",
           "icon": "🌅",
           "logo": "tli-afterlight.png",
           "startDate": "2026-07-17T02:00:00Z",
@@ -605,7 +641,8 @@
           "patchUrl": "https://torchlight.xd.com/us/index",
           "sourceType": "official",
           "starterBuildUrl": null,
-          "buildLabel": null
+          "buildLabel": null,
+          "estimate": null
         },
         {
           "id": "tli-ss14",
@@ -620,7 +657,8 @@
           "patchUrl": null,
           "sourceType": null,
           "starterBuildUrl": null,
-          "buildLabel": null
+          "buildLabel": null,
+          "estimate": null
         }
       ]
     }

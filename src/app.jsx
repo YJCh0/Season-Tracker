@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 
-const LOGO_BASE = "/assets/logos/";
+const LOGO_BASE = import.meta.env.BASE_URL + "assets/logos/";
 const LS_PINNED = "season-tracker:pinned";
 const LS_COMPACT = "season-tracker:compact";
 const LS_NOTIF_ENABLED = "season-tracker:notif-enabled";
 const LS_NOTIFIED_PREFIX = "season-tracker:notified:";
+const LS_SORT = "season-tracker:sort";
 
 // ━━━ localStorage 안전 래퍼 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 function lsGet(key, fallback) {
@@ -53,6 +54,33 @@ function urgencyColor(days) {
   if (days < 14) return "#e74c3c";
   if (days < 30) return "#e67e22";
   return "rgba(255,255,255,0.4)";
+}
+function itemStatus(item, now) {
+  const unknown = !item.startDate;
+  const upcoming = !unknown && now < item.startDate;
+  const active = !unknown && now >= item.startDate && (!item.endDate || now < item.endDate);
+  const done = !unknown && item.endDate && now >= item.endDate;
+  return { unknown, upcoming, active, done };
+}
+
+// ━━━ 이번 주 하이라이트 수집 ━━━━━━━━━━━━━━━━━━━━━━━━━
+// 모든 게임의 아이템 중 D-7 이내(출시 임박 또는 종료 임박)인 것만 모아 정렬
+function collectHighlights(games, now) {
+  const out = [];
+  games.forEach(game => {
+    game.items.forEach(item => {
+      const { upcoming, active } = itemStatus(item, now);
+      if (upcoming) {
+        const d = daysBetween(now, item.startDate);
+        if (d <= 7) out.push({ gameId: game.id, shortName: game.shortName, color: game.accentColor, icon: item.icon, name: item.name, kind: "start", days: d });
+      }
+      if (active && item.endDate) {
+        const d = daysBetween(now, item.endDate);
+        if (d <= 7) out.push({ gameId: game.id, shortName: game.shortName, color: game.accentColor, icon: item.icon, name: item.name, kind: "end", days: d });
+      }
+    });
+  });
+  return out.sort((a, b) => a.days - b.days);
 }
 
 // ━━━ SVG 링 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -117,6 +145,18 @@ function SourceTag({ type }) {
     </span>
   );
 }
+// 확정/추정 배지 — 종료일(추정)과 미확정 예상일 표기를 동일한 룩앤필로 통일
+function EstimateTag() {
+  return (
+    <span style={{
+      fontSize: 8, fontWeight: 700, borderRadius: 3, padding: "1px 4px",
+      color: "#f1c40f", background: "rgba(241,196,15,0.12)",
+      border: "1px solid rgba(241,196,15,0.3)",
+    }}>
+      추정
+    </span>
+  );
+}
 function PinButton({ pinned, onClick }) {
   return (
     <button
@@ -134,12 +174,52 @@ function PinButton({ pinned, onClick }) {
   );
 }
 
+// ━━━ 이번 주 하이라이트 바 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function HighlightsBar({ highlights, onJump }) {
+  if (highlights.length === 0) return null;
+  return (
+    <div style={{
+      marginBottom: 20, background: "rgba(255,255,255,0.03)",
+      border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, padding: "10px 12px",
+    }}>
+      <div style={{ fontSize: 10, color: "rgba(255,255,255,0.35)", textTransform: "uppercase", letterSpacing: 1.5, marginBottom: 8 }}>
+        ⏰ 이번 주 하이라이트
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+        {highlights.map((h, i) => (
+          <div
+            key={i}
+            onClick={() => onJump(h.gameId)}
+            style={{
+              display: "flex", alignItems: "center", gap: 8, cursor: "pointer",
+              padding: "4px 6px", borderRadius: 6, transition: "background 0.15s",
+            }}
+            onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.05)"}
+            onMouseLeave={e => e.currentTarget.style.background = "transparent"}
+          >
+            <span style={{ fontSize: 14, flexShrink: 0 }}>{h.icon}</span>
+            <span style={{ fontSize: 11, fontWeight: 700, color: h.color, fontFamily: "'Courier New',monospace", flexShrink: 0 }}>
+              {h.shortName}
+            </span>
+            <span style={{ fontSize: 11, color: "#f0f0f0", flex: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+              {h.name}
+            </span>
+            <span style={{
+              fontSize: 10, fontWeight: 800, fontFamily: "monospace", flexShrink: 0,
+              color: h.days <= 1 ? "#e74c3c" : "#e67e22",
+            }}>
+              {h.kind === "start" ? "출시 " : "종료 "}D-{h.days}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ━━━ 로드맵 아이템 행 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function ItemRow({ item, now, color }) {
-  const unknown  = !item.startDate;
-  const upcoming = !unknown && now < item.startDate;
-  const active   = !unknown && now >= item.startDate && (!item.endDate || now < item.endDate);
-  const done     = !unknown && item.endDate && now >= item.endDate;
+  const { unknown, upcoming, active, done } = itemStatus(item, now);
 
   const pct     = calcProgress(item.startDate, item.endDate, now);
   const elapsed = !unknown ? daysBetween(item.startDate, now) : null;
@@ -174,7 +254,13 @@ function ItemRow({ item, now, color }) {
           {item.note && <span style={{ color: "rgba(255,255,255,0.18)" }}> · {item.note}</span>}
         </div>
         {unknown ? (
-          <span style={{ fontSize: 10, color: "rgba(255,255,255,0.22)" }}>일정 미발표</span>
+          item.estimate ? (
+            <span style={{ fontSize: 10, color: "rgba(255,255,255,0.4)", display: "inline-flex", alignItems: "center", gap: 5 }}>
+              {item.estimate} <EstimateTag />
+            </span>
+          ) : (
+            <span style={{ fontSize: 10, color: "rgba(255,255,255,0.22)" }}>일정 미발표</span>
+          )
         ) : upcoming ? (
           <span style={{ fontSize: 10, color: "rgba(255,255,255,0.5)" }}>
             {kfmt(item.startDate, { month: "long", day: "numeric" })} 출시 · D-{until}
@@ -182,10 +268,15 @@ function ItemRow({ item, now, color }) {
         ) : done ? (
           <span style={{ fontSize: 10, color: "rgba(255,255,255,0.22)" }}>종료됨</span>
         ) : (
-          <div style={{ display: "flex", gap: 8, fontSize: 10 }}>
+          <div style={{ display: "flex", gap: 6, fontSize: 10, alignItems: "center" }}>
             <span style={{ color: "rgba(255,255,255,0.5)" }}>{elapsedText(elapsed)}</span>
             {left != null
-              ? <span style={{ color: urgencyColor(left) }}>· {daysLeftText(left)}{item.endIsEstimate ? " (추정)" : ""}</span>
+              ? (
+                <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
+                  <span style={{ color: urgencyColor(left) }}>· {daysLeftText(left)}</span>
+                  {item.endIsEstimate && <EstimateTag />}
+                </span>
+              )
               : <span style={{ color: "rgba(255,255,255,0.28)" }}>· 종료일 미발표</span>
             }
           </div>
@@ -235,7 +326,9 @@ function ItemRow({ item, now, color }) {
 }
 
 // ━━━ 게임 카드 (일반/컴팩트 공용) ━━━━━━━━━━━━━━━━━━━━
-function GameCard({ game, now, open, onToggle, pinned, onTogglePin, compact }) {
+const GameCard = React.forwardRef(function GameCard(
+  { game, now, open, onToggle, pinned, onTogglePin, compact }, ref
+) {
   const current = game.items.find(
     i => i.startDate && now >= i.startDate && (!i.endDate || now < i.endDate)
   );
@@ -254,9 +347,14 @@ function GameCard({ game, now, open, onToggle, pinned, onTogglePin, compact }) {
     <>
       <span style={{ color: "rgba(255,255,255,0.5)" }}>{elapsedText(daysBetween(current.startDate, now))}</span>
       {current.endDate
-        ? <span style={{ color: urgencyColor(daysBetween(now, current.endDate)) }}>
-            · {daysLeftText(daysBetween(now, current.endDate))}{current.endIsEstimate ? " (추정)" : ""}
+        ? (
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
+            <span style={{ color: urgencyColor(daysBetween(now, current.endDate)) }}>
+              · {daysLeftText(daysBetween(now, current.endDate))}
+            </span>
+            {current.endIsEstimate && <EstimateTag />}
           </span>
+        )
         : <span style={{ color: "rgba(255,255,255,0.3)" }}>· 종료일 미발표</span>
       }
     </>
@@ -264,14 +362,19 @@ function GameCard({ game, now, open, onToggle, pinned, onTogglePin, compact }) {
     <>
       <span style={{ color: "rgba(255,255,255,0.5)" }}>{elapsedText(elapsed)}</span>
       {left != null
-        ? <span style={{ color: urgencyColor(left) }}>· {daysLeftText(left)}{game.endIsEstimate ? " (추정)" : ""}</span>
+        ? (
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
+            <span style={{ color: urgencyColor(left) }}>· {daysLeftText(left)}</span>
+            {game.endIsEstimate && <EstimateTag />}
+          </span>
+        )
         : <span style={{ color: "rgba(255,255,255,0.3)" }}>· 종료일 미발표</span>
       }
     </>
   );
 
   return (
-    <div onClick={onToggle} style={{
+    <div ref={ref} onClick={onToggle} style={{
       background: `linear-gradient(135deg, ${game.bgColor} 0%, #0d0d0d 100%)`,
       border: `1px solid ${open ? game.accentColor + "66" : "rgba(255,255,255,0.07)"}`,
       borderRadius: compact ? 12 : 16,
@@ -336,7 +439,7 @@ function GameCard({ game, now, open, onToggle, pinned, onTogglePin, compact }) {
       )}
     </div>
   );
-}
+});
 
 // ━━━ 알림 로직 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function checkAndNotify(games, now) {
@@ -346,33 +449,24 @@ function checkAndNotify(games, now) {
   games.forEach(game => {
     game.items.forEach(item => {
       if (!item.startDate) return;
-      const upcoming = now < item.startDate;
-      const active = now >= item.startDate && (!item.endDate || now < item.endDate);
+      const { upcoming, active } = itemStatus(item, now);
 
-      // 출시 임박 알림 (D-7, D-1)
       if (upcoming) {
         const daysUntil = daysBetween(now, item.startDate);
         if (daysUntil === 7 || daysUntil === 1) {
           const key = `${LS_NOTIFIED_PREFIX}${item.id}:start:${daysUntil}:${todayKey}`;
           if (!lsGet(key, false)) {
-            new Notification(`${game.shortName} 출시 임박`, {
-              body: `${item.name} — D-${daysUntil}`,
-              tag: key,
-            });
+            new Notification(`${game.shortName} 출시 임박`, { body: `${item.name} — D-${daysUntil}`, tag: key });
             lsSet(key, true);
           }
         }
       }
-      // 종료 임박 알림 (D-7, D-1)
       if (active && item.endDate) {
         const daysLeft = daysBetween(now, item.endDate);
         if (daysLeft === 7 || daysLeft === 1) {
           const key = `${LS_NOTIFIED_PREFIX}${item.id}:end:${daysLeft}:${todayKey}`;
           if (!lsGet(key, false)) {
-            new Notification(`${game.shortName} 시즌 종료 임박`, {
-              body: `${item.name} — ${daysLeftText(daysLeft)}`,
-              tag: key,
-            });
+            new Notification(`${game.shortName} 시즌 종료 임박`, { body: `${item.name} — ${daysLeftText(daysLeft)}`, tag: key });
             lsSet(key, true);
           }
         }
@@ -395,9 +489,13 @@ export default function App() {
   const [notifPermission, setNotifPermission] = useState(
     typeof Notification !== "undefined" ? Notification.permission : "unsupported"
   );
+  const [query, setQuery] = useState("");
+  const [sortMode, setSortMode] = useState(() => lsGet(LS_SORT, "default")); // "default" | "urgent"
+
+  const cardRefs = useRef({});
 
   useEffect(() => {
-    fetch("/assets/games.json")
+    fetch(import.meta.env.BASE_URL + "assets/games.json")
       .then(r => r.json())
       .then(raw => {
         setGames(parseGames(raw));
@@ -415,8 +513,8 @@ export default function App() {
   useEffect(() => { lsSet(LS_PINNED, pinned); }, [pinned]);
   useEffect(() => { lsSet(LS_COMPACT, compact); }, [compact]);
   useEffect(() => { lsSet(LS_NOTIF_ENABLED, notifEnabled); }, [notifEnabled]);
+  useEffect(() => { lsSet(LS_SORT, sortMode); }, [sortMode]);
 
-  // 알림 체크 (게임 로드 후 + 1분마다 now 갱신될 때)
   useEffect(() => {
     if (notifEnabled && games.length > 0) checkAndNotify(games, now);
   }, [notifEnabled, games, now]);
@@ -436,14 +534,46 @@ export default function App() {
     if (perm === "granted") setNotifEnabled(true);
   };
 
-  const sortedGames = useMemo(() => {
+  // 게임의 "가장 임박한 마감/출시" 값 (정렬용) — 없으면 무한대 취급
+  const urgencyValue = (game) => {
+    const current = game.items.find(
+      i => i.startDate && now >= i.startDate && (!i.endDate || now < i.endDate)
+    );
+    if (current?.endDate) return daysBetween(now, current.endDate);
+    const upcoming = game.items
+      .filter(i => i.startDate && now < i.startDate)
+      .sort((a, b) => a.startDate - b.startDate)[0];
+    if (upcoming) return daysBetween(now, upcoming.startDate);
+    return Infinity;
+  };
+
+  const filteredSortedGames = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    let list = games.filter(g =>
+      !q || g.name.toLowerCase().includes(q) || g.shortName.toLowerCase().includes(q)
+    );
+
     const pinnedSet = new Set(pinned);
-    return [...games].sort((a, b) => {
+    list = [...list].sort((a, b) => {
       const ap = pinnedSet.has(a.id) ? 0 : 1;
       const bp = pinnedSet.has(b.id) ? 0 : 1;
-      return ap - bp;
+      if (ap !== bp) return ap - bp;
+      if (sortMode === "urgent") return urgencyValue(a) - urgencyValue(b);
+      return 0; // 기본순 유지
     });
-  }, [games, pinned]);
+    return list;
+  }, [games, pinned, query, sortMode, now]);
+
+  const highlights = useMemo(() => collectHighlights(games, now), [games, now]);
+
+  const jumpToGame = (gameId) => {
+    setCompact(false);
+    setOpen(gameId);
+    setQuery("");
+    requestAnimationFrame(() => {
+      cardRefs.current[gameId]?.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  };
 
   return (
     <div style={{ minHeight: "100vh", background: "#0a0a0a", display: "flex", justifyContent: "center", alignItems: "flex-start", padding: "32px 16px 48px", fontFamily: "'Inter','Segoe UI',system-ui,sans-serif" }}>
@@ -460,18 +590,48 @@ export default function App() {
           </div>
         </div>
 
+        {!loading && <HighlightsBar highlights={highlights} onJump={jumpToGame} />}
+
+        {/* 검색 */}
+        <div style={{ marginBottom: 12 }}>
+          <input
+            type="text"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+            placeholder="게임 검색 (예: Diablo, WoW...)"
+            style={{
+              width: "100%", boxSizing: "border-box",
+              fontSize: 13, padding: "9px 12px", borderRadius: 10,
+              background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)",
+              color: "#fff", outline: "none",
+            }}
+          />
+        </div>
+
         {/* 컨트롤 바 */}
-        <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 20 }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 20, flexWrap: "wrap" }}>
           <button
             onClick={() => setCompact(v => !v)}
             style={{
               fontSize: 11, fontWeight: 700, padding: "6px 12px", borderRadius: 20,
               background: compact ? "rgba(255,255,255,0.12)" : "rgba(255,255,255,0.04)",
               border: "1px solid rgba(255,255,255,0.12)", color: "#fff",
-              cursor: "pointer", display: "flex", alignItems: "center", gap: 5,
+              cursor: "pointer",
             }}
           >
             {compact ? "📋 컴팩트" : "🗂️ 상세"}
+          </button>
+          <button
+            onClick={() => setSortMode(m => m === "urgent" ? "default" : "urgent")}
+            style={{
+              fontSize: 11, fontWeight: 700, padding: "6px 12px", borderRadius: 20,
+              background: sortMode === "urgent" ? "rgba(231,76,60,0.15)" : "rgba(255,255,255,0.04)",
+              border: `1px solid ${sortMode === "urgent" ? "rgba(231,76,60,0.4)" : "rgba(255,255,255,0.12)"}`,
+              color: sortMode === "urgent" ? "#e74c3c" : "#fff",
+              cursor: "pointer",
+            }}
+          >
+            {sortMode === "urgent" ? "⏱ 임박순" : "↕ 기본순"}
           </button>
           <button
             onClick={handleNotifToggle}
@@ -484,7 +644,7 @@ export default function App() {
               cursor: "pointer",
             }}
           >
-            {notifEnabled ? "🔔 알림 켜짐" : "🔕 알림 끄짐"}
+            {notifEnabled ? "🔔 알림 켜짐" : "🔕 알림 꺼짐"}
           </button>
         </div>
 
@@ -492,12 +652,17 @@ export default function App() {
           <div style={{ textAlign: "center", color: "rgba(255,255,255,0.3)", paddingTop: 60, fontSize: 14 }}>
             불러오는 중...
           </div>
+        ) : filteredSortedGames.length === 0 ? (
+          <div style={{ textAlign: "center", color: "rgba(255,255,255,0.3)", paddingTop: 40, fontSize: 13 }}>
+            "{query}"와 일치하는 게임이 없어요
+          </div>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: compact ? 8 : 16 }}>
-            {sortedGames.map(game => (
+            {filteredSortedGames.map(game => (
               <GameCard
                 key={game.id} game={game} now={now}
-                open={open === game.id && !compact ? true : (!compact && open === game.id)}
+                ref={el => cardRefs.current[game.id] = el}
+                open={!compact && open === game.id}
                 onToggle={() => !compact && setOpen(p => p === game.id ? null : game.id)}
                 pinned={pinned.includes(game.id)}
                 onTogglePin={() => togglePin(game.id)}
@@ -507,7 +672,6 @@ export default function App() {
           </div>
         )}
 
-        {/* 컴팩트 모드에서 상세보기 안내 */}
         {compact && (
           <div style={{ textAlign: "center", marginTop: 12, fontSize: 10, color: "rgba(255,255,255,0.2)" }}>
             상세 로드맵을 보려면 '상세' 보기로 전환하세요
