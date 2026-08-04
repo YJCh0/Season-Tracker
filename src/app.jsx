@@ -55,6 +55,21 @@ function urgencyColor(days) {
   if (days < 30) return "#e67e22";
   return "rgba(255,255,255,0.4)";
 }
+// 구글 캘린더 "일정 추가" 링크 생성 (1시간짜리 이벤트로 등록)
+function toGCalStamp(d) {
+  return d.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+}
+function buildGCalUrl(title, date, details) {
+  const start = toGCalStamp(date);
+  const end = toGCalStamp(new Date(date.getTime() + 60 * 60 * 1000));
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: title,
+    dates: `${start}/${end}`,
+    details: details || "",
+  });
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
 function itemStatus(item, now) {
   const unknown = !item.startDate;
   const upcoming = !unknown && now < item.startDate;
@@ -227,6 +242,16 @@ function ItemRow({ item, now, color }) {
   const until   = upcoming ? daysBetween(now, item.startDate) : null;
   const ringColor = active ? color : "rgba(255,255,255,0.2)";
 
+  // 구글 캘린더 등록 대상: 출시 예정이면 출시일, 진행 중이고 종료일이 있으면 종료일
+  let gcalUrl = null, gcalText = null;
+  if (upcoming) {
+    gcalUrl = buildGCalUrl(`${item.name} 출시`, item.startDate, item.note || "");
+    gcalText = "출시일 추가";
+  } else if (active && item.endDate) {
+    gcalUrl = buildGCalUrl(`${item.name} 종료`, item.endDate, item.note || "");
+    gcalText = "종료일 추가";
+  }
+
   return (
     <div style={{
       background: active ? "rgba(255,255,255,0.05)" : "rgba(255,255,255,0.02)",
@@ -318,6 +343,21 @@ function ItemRow({ item, now, color }) {
             }}
           >
             {item.buildLabel || "빌드 가이드 ↗"}
+          </a>
+        )}
+        {gcalUrl && (
+          <a href={gcalUrl} target="_blank" rel="noopener noreferrer"
+            onClick={e => e.stopPropagation()}
+            style={{
+              fontSize: 9, fontWeight: 700, letterSpacing: 0.5,
+              color: "#7ee787", background: "rgba(126,231,135,0.08)",
+              border: "1px solid rgba(126,231,135,0.25)",
+              borderRadius: 4, padding: "2px 6px",
+              textDecoration: "none", whiteSpace: "nowrap",
+              display: "inline-flex", alignItems: "center", gap: 3,
+            }}
+          >
+            📅 {gcalText}
           </a>
         )}
       </div>

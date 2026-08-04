@@ -4,7 +4,7 @@
     "파일명_규칙": "게임 로고: {gameId}.png  /  패치·시즌별 로고: {itemId}.png  /  없으면 null",
     "날짜_형식": "ISO 8601 — 예: 2026-04-28T00:00:00Z  /  미발표·미확정은 null",
     "endIsEstimate": "true = 추정치 표시, false = 확정",
-    "최종_업데이트": "2026-07-24 기준",
+    "최종_업데이트": "2026-08-04 기준",
     "sourceType": "official = 공식 사이트, community = 커뮤니티/팬사이트 (Wowhead, Maxroll 등)",
     "starterBuildUrl": "리그/시즌 참고 사이트 링크 (빌드 가이드, 메타 통계, 로그 사이트 등) — 없으면 null",
     "buildLabel": "starterBuildUrl 버튼에 표시할 텍스트, 없으면 기본값 '빌드 가이드 ↗' 사용",
@@ -21,7 +21,7 @@
       "accentColor": "#c0392b",
       "glowColor": "rgba(192,57,43,0.35)",
       "bgColor": "#1a0a0a",
-      "patch": "v3.1.1a",
+      "patch": "v3.1.2",
       "label": "S14 · Season of Death Awakening",
       "startDate": "2026-06-30T17:00:00Z",
       "endDate": null,
@@ -52,7 +52,7 @@
           "startDate": "2026-06-30T17:00:00Z",
           "endDate": null,
           "endIsEstimate": false,
-          "note": "Pandemonium Ruptures · Mythic Unique 3.0 · 3.1.1/3.1.1a로 Mythic 드랍률 개선",
+          "note": "Pandemonium Ruptures · 3.1.2로 Pit Bubble 복귀 · Mythic 재활용 가능",
           "patchUrl": "https://news.blizzard.com/en-us/article/24268702/hunt-the-death-cult-in-season-of-death-awakening",
           "sourceType": "official",
           "starterBuildUrl": "https://maxroll.gg/d4/tierlist/build-tier-list",
@@ -68,11 +68,11 @@
           "startDate": null,
           "endDate": null,
           "endIsEstimate": false,
-          "note": "이름·정확한 날짜 미발표",
+          "note": "패치 3.2.0 · 캐릭터 Rebirth 기능 · PTR 8/4~8/11 진행 중 · BlizzCon서 추가 공개 예정",
           "patchUrl": null,
           "sourceType": null,
           "starterBuildUrl": null,
-          "estimate": "9~10월 예상"
+          "estimate": "9월 예상"
         }
       ]
     },
@@ -104,7 +104,8 @@
           "note": "신규 Warlock 클래스 · 패치 v3.1",
           "patchUrl": "https://news.blizzard.com/en-us/article/24246296/diablo-ii-resurrected-ladder-season-13-coming-soon",
           "sourceType": "official",
-          "starterBuildUrl": null
+          "starterBuildUrl": null,
+          "estimate": null
         },
         {
           "id": "d2r-s14",
@@ -119,7 +120,8 @@
           "patchUrl": "https://news.blizzard.com/en-us/diablo2/",
           "sourceType": "official",
           "starterBuildUrl": "https://maxroll.gg/d2/tierlist/ladder-starter-tier-list",
-          "buildLabel": "빌드 가이드 ↗"
+          "buildLabel": "빌드 가이드 ↗",
+          "estimate": null
         },
         {
           "id": "d2r-s15",
@@ -130,11 +132,11 @@
           "startDate": null,
           "endDate": null,
           "endIsEstimate": false,
-          "note": "정확한 날짜 미확정",
+          "note": "패치 3.3 예상 · 정확한 날짜 미발표(커뮤니티 예측)",
           "patchUrl": null,
           "sourceType": null,
           "starterBuildUrl": null,
-          "estimate": "8월 말~9월 초 예상"
+          "estimate": "8월 28일 또는 9월 4일 예상"
         }
       ]
     },
@@ -247,7 +249,24 @@
           "patchUrl": "https://www.pathofexile.com/forum/view-forum/poe2-patch-notes",
           "sourceType": "official",
           "starterBuildUrl": "https://maxroll.gg/poe2/build-guides/starter-guide",
-          "buildLabel": "빌드 가이드 ↗"
+          "buildLabel": "빌드 가이드 ↗",
+          "estimate": null
+        },
+        {
+          "id": "poe2-055",
+          "name": "0.5.5 이벤트 리그",
+          "sub": "단기 이벤트 (약 1개월)",
+          "icon": "🌀",
+          "logo": null,
+          "startDate": null,
+          "endDate": null,
+          "endIsEstimate": false,
+          "estimate": "9월 초 예상",
+          "note": "0.6 정식 업데이트는 취소 · 밸런스·경제 리셋 중심의 단기 이벤트",
+          "patchUrl": null,
+          "sourceType": null,
+          "starterBuildUrl": null,
+          "buildLabel": null
         },
         {
           "id": "poe2-100",
@@ -258,11 +277,11 @@
           "startDate": null,
           "endDate": null,
           "endIsEstimate": false,
-          "note": "무료 전환(F2P) · ExileCon 2026(11월) 전체 공개 예정 · 정확한 일자 미발표",
+          "note": "무료 전환(F2P) · ExileCon 2026 11/7~8(뉴질랜드) 공개 예정 · 정확한 일자는 미발표",
           "patchUrl": null,
           "sourceType": null,
           "starterBuildUrl": null,
-          "estimate": "2026년 12월"
+          "estimate": "11월 ExileCon 이후 (연내)"
         }
       ]
     },
@@ -295,7 +314,8 @@
           "patchUrl": "https://www.wowhead.com/guide/raids/the-voidspire/overview",
           "sourceType": "community",
           "starterBuildUrl": "https://www.archon.gg/wow/tier-list/dps-rankings/raid/mythic/all-bosses",
-          "buildLabel": "DPS 티어리스트 ↗"
+          "buildLabel": "DPS 티어리스트 ↗",
+          "estimate": null
         },
         {
           "id": "wow-dreamrift",
@@ -310,7 +330,8 @@
           "patchUrl": "https://www.wowhead.com/guide/raids/the-dreamrift/overview",
           "sourceType": "community",
           "starterBuildUrl": "https://www.archon.gg/wow/tier-list/dps-rankings/raid/mythic/all-bosses",
-          "buildLabel": "DPS 티어리스트 ↗"
+          "buildLabel": "DPS 티어리스트 ↗",
+          "estimate": null
         },
         {
           "id": "wow-quel",
@@ -325,7 +346,24 @@
           "patchUrl": "https://www.wowhead.com/guide/raids/march-on-queldanas/overview",
           "sourceType": "community",
           "starterBuildUrl": "https://www.archon.gg/wow/tier-list/dps-rankings/raid/mythic/all-bosses",
-          "buildLabel": "DPS 티어리스트 ↗"
+          "buildLabel": "DPS 티어리스트 ↗",
+          "estimate": null
+        },
+        {
+          "id": "wow-coiled-isle",
+          "name": "The Coiled Isle 패치",
+          "sub": "12.1 콘텐츠 패치",
+          "icon": "🏝️",
+          "logo": "wow-coiled-isle.png",
+          "startDate": "2026-08-11T15:00:00Z",
+          "endDate": null,
+          "endIsEstimate": false,
+          "note": "신규 존 Coiled Isle · Altar of Fangs 던전 · Lairs · 신규 Delve 3종",
+          "patchUrl": "https://www.wowhead.com/news",
+          "sourceType": "community",
+          "starterBuildUrl": null,
+          "buildLabel": null,
+          "estimate": null
         },
         {
           "id": "wow-venomous",
@@ -333,15 +371,15 @@
           "sub": "S2 레이드 · 8보스",
           "icon": "🐍",
           "logo": "wow-venomous.png",
-          "startDate": null,
+          "startDate": "2026-08-18T15:00:00Z",
           "endDate": null,
           "endIsEstimate": false,
-          "note": "12.1 Curse of Ula'tek · 선행퀘 7/7 시작됨 · 정확한 날짜는 미확정",
+          "note": "12.1 Curse of Ula'tek 패치는 8/11 · 레이드·시즌2·M+ 로테이션은 8/18 오픈",
           "patchUrl": "https://www.wowhead.com/news",
           "sourceType": "community",
           "starterBuildUrl": "https://www.archon.gg/wow/tier-list/dps-rankings/raid/mythic/all-bosses",
           "buildLabel": "DPS 티어리스트 ↗",
-          "estimate": "8월 11일 유력"
+          "estimate": null
         }
       ]
     },
@@ -501,7 +539,8 @@
           "note": "신규 히어로 5명 동시 출시 · 스토리 아크 시작",
           "patchUrl": "https://overwatch.blizzard.com/en-us/news/patch-notes/",
           "sourceType": "official",
-          "starterBuildUrl": null
+          "starterBuildUrl": null,
+          "estimate": null
         },
         {
           "id": "ow2-s2",
@@ -515,7 +554,8 @@
           "note": "신규 히어로 Sierra · Operation Grand Mesa",
           "patchUrl": "https://overwatch.blizzard.com/en-us/news/patch-notes/",
           "sourceType": "official",
-          "starterBuildUrl": null
+          "starterBuildUrl": null,
+          "estimate": null
         },
         {
           "id": "ow2-s3",
@@ -529,7 +569,8 @@
           "note": "신규 히어로 Shion · Community Crafted 모드",
           "patchUrl": "https://overwatch.blizzard.com/en-us/news/patch-notes/",
           "sourceType": "official",
-          "starterBuildUrl": null
+          "starterBuildUrl": null,
+          "estimate": null
         },
         {
           "id": "ow2-s4",
@@ -537,14 +578,14 @@
           "sub": "다음 시즌",
           "icon": "❓",
           "logo": null,
-          "startDate": null,
+          "startDate": "2026-08-11T18:00:00Z",
           "endDate": null,
           "endIsEstimate": false,
-          "note": "시즌3 종료 직후 전환 예상 · 정확한 날짜 미발표",
-          "patchUrl": null,
-          "sourceType": null,
+          "note": "신규 히어로 D.Mon(탱커) 예상 · Busan·Eichenwalde·Paraíso 맵 리워크",
+          "patchUrl": "https://overwatch.blizzard.com/en-us/news/patch-notes/",
+          "sourceType": "official",
           "starterBuildUrl": null,
-          "estimate": "8월 11일 이후"
+          "estimate": null
         }
       ]
     },
@@ -577,7 +618,8 @@
           "patchUrl": "https://maxroll.gg/last-epoch/news/last-epoch-season-4-first-look-and-updated-roadmap",
           "sourceType": "community",
           "starterBuildUrl": "https://maxroll.gg/last-epoch/tierlist/starter-build-tier-list",
-          "buildLabel": "빌드 가이드 ↗"
+          "buildLabel": "빌드 가이드 ↗",
+          "estimate": null
         },
         {
           "id": "le-s5",
@@ -637,7 +679,7 @@
           "startDate": "2026-07-17T02:00:00Z",
           "endDate": null,
           "endIsEstimate": false,
-          "note": "신규 히어로 Tide Whisper Selina (물 속성) · TorchCon 2026 공개",
+          "note": "신규 히어로 Tide Whisper Selina(물 속성) · TorchCon 2026(상하이) 개최",
           "patchUrl": "https://torchlight.xd.com/us/index",
           "sourceType": "official",
           "starterBuildUrl": null,
