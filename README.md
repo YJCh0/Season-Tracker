@@ -1,19 +1,19 @@
-# 🎮 Game Season Tracker — 실행 매뉴얼
+# 🎮 Game Season Tracker — Setup Guide
 
-## 📁 폴더 구조
+## 📁 Project Structure
 
 ```
 season-tracker/
 ├── index.html
 ├── package.json
 ├── vite.config.js
-├── README.md               ← 이 파일
+├── README.md               ← this file
 ├── scripts/
-│   └── check-updates.mjs   ← `npm run check`로 실행하는 점검 스크립트
+│   └── check-updates.mjs   ← run with `npm run check`
 ├── public/
 │   └── assets/
-│       ├── games.json      ← 날짜·이름·링크 수정은 여기만
-│       └── logos/          ← 🖼️ 게임·패치 로고 이미지를 여기에 넣으세요
+│       ├── games.json      ← edit dates, names, and links here only
+│       └── logos/          ← 🖼️ put game/patch logo images here
 │           ├── d4.png
 │           ├── d4-s14.png
 │           ├── wow.png
@@ -21,257 +21,265 @@ season-tracker/
 │           └── ...
 └── src/
     ├── main.jsx
-    └── App.jsx              ← 화면 구조·디자인 코드 (평소엔 안 건드려도 됨)
+    └── App.jsx              ← layout/design code (rarely needs editing)
 ```
 
-**중요**: 로고 이미지와 JSON 데이터는 반드시 `public/assets/` 안에 있어야 브라우저가 읽을 수 있어요. `src/` 폴더 안에 넣으면 인식되지 않아요.
+**Important**: logo images and JSON data must live under `public/assets/` — the browser can't load them from `src/`.
 
 ---
 
-## 🚀 처음 실행 (최초 1회)
+## 🚀 First-time setup
 
 ```bash
-# 1. Node.js 설치 여부 확인
+# 1. Check Node.js is installed
 node -v
 
-# 설치 안 돼 있다면:
+# If not:
 brew install node
 
-# 2. 프로젝트 폴더로 이동
-cd /Users/youngjuncho/Documents/Warcraft/main/season-tracker
+# 2. Move into the project folder
+cd /path/to/season-tracker
 
-# 3. 패키지 설치 (최초 1회만)
+# 3. Install dependencies (once)
 npm install
 
-# 4. 개발 서버 실행
+# 4. Start the dev server
 npm run dev
 ```
 
-터미널에 `http://localhost:5173` 이 뜨면 브라우저에서 열면 돼요.
+Once the terminal shows `http://localhost:5173`, open it in a browser.
 
 ---
 
-## 🔄 이후 실행 (매번)
+## 🔄 Running it again later
 
 ```bash
-cd /Users/youngjuncho/Documents/Warcraft/main/season-tracker
+cd /path/to/season-tracker
 npm run dev
 ```
 
-종료: 터미널에서 `Ctrl + C`
+Stop it with `Ctrl + C`.
 
 ---
 
-## ✏️ 시즌/패치 정보 업데이트
+## ✏️ Updating season/patch info
 
-**코드를 건드릴 필요 없이 `public/assets/games.json` 파일만 열어서 수정하면 돼요.**
+**No code changes needed — just edit `public/assets/games.json`.**
 
-### 날짜 수정
+### Editing dates
 ```json
-"startDate": "2026-06-30T17:00:00Z",   // 시작일 (UTC 기준, ISO 8601 형식)
-"endDate": "2026-07-20T00:00:00Z",     // 종료일 — 미발표면 null
-"endIsEstimate": false                 // true = "(추정)" 표시
+"startDate": "2026-06-30T17:00:00Z",   // start (UTC, ISO 8601)
+"endDate": "2026-07-20T00:00:00Z",     // end — null if not yet announced
+"endIsEstimate": false                 // true shows an "estimate" badge
 ```
 
-### 새 시즌/패치 추가
-각 게임의 `items` 배열에 항목을 추가하면 로드맵에 자동으로 나타나요:
+### Adding a new season/patch
+Add an entry to a game's `items` array and it shows up in the roadmap automatically:
 ```json
 {
-  "id": "고유한-id",
-  "name": "시즌 이름",
-  "sub": "부제목",
+  "id": "unique-id",
+  "name": "Season Name",
+  "sub": "Subtitle",
   "icon": "🔥",
-  "logo": "파일명.png 또는 null",
+  "logo": "filename.png or null",
   "startDate": "2026-08-01T00:00:00Z",
   "endDate": null,
   "endIsEstimate": false,
-  "estimate": "8월 초 예상 (미확정일 때만, startDate가 null인 경우에 표시)",
-  "note": "설명 텍스트",
-  "patchUrl": "https://패치노트-링크 또는 null",
-  "sourceType": "official 또는 community",
-  "starterBuildUrl": "https://참고사이트-링크 또는 null",
-  "buildLabel": "버튼에 표시할 텍스트 (예: '메타 통계 ↗')"
+  "estimate": "Guessed timing text (only shown when startDate is null)",
+  "note": "Description",
+  "patchUrl": "https://patch-notes-link or null",
+  "sourceType": "official or community",
+  "starterBuildUrl": "https://reference-site-link or null",
+  "buildLabel": "Button text (e.g. 'Meta Stats ↗')",
+  "name_en": "English name (optional, used with EN toggle)",
+  "sub_en": "English subtitle (optional)",
+  "note_en": "English note (optional)",
+  "estimate_en": "English estimate text (optional)"
 }
 ```
 
-### 새 게임 추가
-`games` 배열 전체에 게임 객체를 하나 더 추가하면 카드가 자동으로 생겨요. 기존 게임 항목을 복사해서 값만 바꾸면 가장 쉬워요.
+### Adding a whole new game
+Append a full game object to the `games` array and a card appears automatically. Easiest way: duplicate an existing entry and change the values.
 
-저장하면 브라우저가 자동으로 새로고침돼요 (Vite Hot Reload).
-
----
-
-## 🔗 게임별 참고 사이트 링크 (starterBuildUrl)
-
-로드맵을 펼쳤을 때 각 시즌/패치 항목에 뜨는 보조 링크 버튼이에요. 게임마다 성격이 달라서 버튼 텍스트(`buildLabel`)도 다르게 붙여뒀어요.
-
-| 게임 | 연결된 사이트 | 버튼 텍스트 |
-|---|---|---|
-| Hearthstone | [hsguru.com 메타 (Top Legend)](https://www.hsguru.com/meta?format=2&rank=top_legend) | 메타 통계 ↗ |
-| World of Warcraft | [archon.gg 신화 난이도 DPS 티어리스트](https://www.archon.gg/wow/tier-list/dps-rankings/raid/mythic/all-bosses) | DPS 티어리스트 ↗ |
-| Diablo IV / D2R / PoE1 / PoE2 / Last Epoch / Torchlight: Infinite | Maxroll·TLIDB 등 빌드 가이드 | 빌드 가이드 ↗ / 빌드 DB ↗ |
-
-다른 사이트로 바꾸고 싶으면 games.json에서 해당 항목의 `starterBuildUrl`과 `buildLabel`만 고치면 돼요.
+Saving the file triggers Vite's hot reload — the browser updates on its own.
 
 ---
 
-## 🏷️ 공식/커뮤니티 배지 (sourceType)
+## 🌐 Korean/English toggle
 
-패치노트 링크 옆에 초록색 **공식** 또는 회색 **커뮤니티** 태그가 자동으로 붙어요. `news.blizzard.com`, `pathofexile.com` 도메인은 공식으로, 그 외(Wowhead, Maxroll 등)는 커뮤니티로 분류돼 있어요. `sourceType` 필드를 직접 `"official"` / `"community"`로 바꿔서 조정할 수도 있어요.
-
----
-
-## ⭐ 즐겨찾기 (고정)
-
-각 게임 카드 오른쪽의 별 아이콘(☆/★)을 누르면 그 게임이 목록 맨 위로 고정돼요. 브라우저에 저장되기 때문에 앱을 껐다 켜도 유지돼요.
+The **EN / KO** button in the top-right corner switches the interface language. All fixed UI text (buttons, labels, headers) is translated built-in. Per-game and per-item text (season labels, subtitles, notes, estimates) uses the optional `*_en` fields in `games.json` — if a translation is missing, it falls back to the Korean text automatically.
 
 ---
 
-## ⏰ 이번 주 하이라이트
+## ⭐ Pinning favorites
 
-헤더 아래에 모든 게임을 통틀어 **D-7 이내로 임박한 출시/종료**만 모아서 보여주는 요약 박스예요. 각 카드를 일일이 펼쳐보지 않아도 뭐가 임박했는지 한눈에 확인할 수 있어요. 항목을 클릭하면 해당 게임 카드로 자동 스크롤되고 로드맵이 펼쳐져요. 임박한 항목이 없으면 박스 자체가 나타나지 않아요.
-
----
-
-## 🔍 검색 & 정렬
-
-- **검색창**: 게임 이름이나 약어(D4, WoW 등)로 필터링돼요.
-- **"기본순 / 임박순" 버튼**: 임박순으로 전환하면 가장 빨리 끝나거나 시작하는 게임이 위로 정렬돼요. 즐겨찾기(★)한 게임은 정렬 모드와 관계없이 항상 최상단에 고정돼요.
+Click the star icon (☆/★) on any game card to pin it to the top of the list. This is saved in the browser, so it persists across sessions.
 
 ---
 
-## 📋 컴팩트 뷰
+## ⏰ This week's highlights
 
-헤더의 **"상세 / 컴팩트"** 버튼으로 보기 방식을 전환할 수 있어요. 컴팩트 모드는 카드 크기를 줄여서 한 화면에 더 많은 게임을 볼 수 있게 해주는 요약 보기예요 (로드맵 펼치기는 상세 모드에서만 가능).
+A summary box below the header shows **anything launching or ending within 7 days**, across every tracked game, so you don't have to expand each card to check. Clicking an entry scrolls to and expands that game's card. The box disappears entirely when nothing is imminent.
 
 ---
 
-## 🏷️ 확정/추정 표시 (통일)
+## 🔍 Search & sort
 
-날짜 관련 표시는 전부 같은 노란색 **"추정"** 배지로 통일했어요:
-- 종료일이 확정이 아닌 경우 (`endIsEstimate: true`)
-- 다음 시즌 시작일이 아직 미확정이지만 대략적인 시점은 알려진 경우 (`estimate` 필드)
+- **Search box**: filters by game name or short name (D4, WoW, etc.).
+- **"Default / Soonest" button**: switches to soonest-first sorting by upcoming/ending dates. Pinned (★) games always stay at the top regardless of sort mode.
 
-`estimate` 필드는 실제 날짜 계산(진행률, D-day)에는 전혀 쓰이지 않는 **참고용 텍스트**예요. 예:
+---
+
+## 📋 Compact view
+
+The **"Detailed / Compact"** button in the header toggles a condensed layout that fits more games on one screen (roadmap expansion is only available in Detailed view).
+
+---
+
+## 🏷️ Confirmed vs. estimated dates
+
+All uncertain dates use the same yellow **"EST."** badge, whether it's:
+- An end date that isn't fully confirmed (`endIsEstimate: true`)
+- A next season's rough timing when the exact date isn't announced yet (`estimate` field)
+
+The `estimate` field is **display-only text** — it's never used in progress bars or D-day math. Example:
 ```json
 {
   "id": "wow-venomous",
   "startDate": null,
-  "estimate": "8월 11일 유력",
-  "note": "12.1 Curse of Ula'tek · 정확한 날짜는 미확정"
+  "estimate": "Likely August 11",
+  "note": "12.1 Curse of Ula'tek · exact date unconfirmed"
 }
 ```
 
 ---
 
-## 🔔 알림
+## 🔔 Notifications
 
-헤더의 **"알림 켜짐/꺼짐"** 버튼을 누르면 브라우저 알림 권한을 요청해요. 허용하면 각 게임의 시즌/패치 시작·종료 **D-7, D-1**에 자동으로 알림이 떠요. 같은 알림이 하루에 여러 번 뜨지 않도록 중복 방지 처리가 되어 있어요.
+The **"Notifications On/Off"** button requests browser notification permission. Once granted, you'll get a notification **7 and 1 day** before any tracked start or end date. Duplicate notifications on the same day are suppressed automatically.
 
-⚠️ 아이폰에서 알림을 받으려면 일반 Safari 탭이 아니라, **홈 화면에 추가한 앱(PWA)** 상태여야 해요 (iOS 16.4 이상). 아래 "아이폰에서 위젯처럼 보기" 섹션을 먼저 따라 하세요.
-
----
-
-## 📅 구글 캘린더에 추가
-
-로드맵을 펼쳤을 때, 출시 예정이거나 종료일이 있는 항목에는 **"📅 출시일 추가" / "📅 종료일 추가"** 버튼이 떠요. 누르면 구글 캘린더 새 탭이 열리고, 해당 날짜에 1시간짜리 일정이 미리 채워진 채로 나와요 — "저장" 버튼만 누르면 본인 캘린더에 등록돼요. 별도 로그인 연동이나 앱 설치 없이, 표준 구글 캘린더 링크 방식이라 안드로이드·아이폰·PC 어디서든 동작해요.
+⚠️ On iPhone, notifications only work if the app is added to your **Home Screen (PWA)**, not just opened as a regular Safari tab (iOS 16.4+). Follow "View as a widget on iPhone" below first.
 
 ---
 
-## 🩺 업데이트 점검 스크립트
+## 📅 Add to Google Calendar
 
-시즌 정보를 매번 손으로 확인하기 번거로울 때, `games.json`을 자동으로 스캔해서 "확인이 필요해 보이는 부분"을 터미널에 알려주는 스크립트예요.
+When a roadmap item has an upcoming launch or a known end date, you'll see a **"📅 Add launch date" / "📅 Add end date"** button. Clicking it opens a new tab with Google Calendar pre-filled with a 1-hour event — just hit save. No login or app install needed; it works the same on Android, iPhone, or desktop.
+
+---
+
+## 📥 Export all events (.ics)
+
+The **"📥 Export Calendar"** button in the control bar downloads a single `.ics` file containing every upcoming launch and active end date across *all* tracked games at once. Import it into Google Calendar, Apple Calendar, Outlook, or any calendar app that supports the standard iCalendar format.
+
+---
+
+## 📱 Widget preview
+
+The **"📱 Widget Preview"** button opens a mockup styled like an iOS home-screen widget, showing your pinned games (or the 4 soonest if nothing's pinned) in a small grid. This is a **visual preview only** — it's not a real iOS widget. For an actual home-screen presence, see the section below.
+
+---
+
+## 🩺 Update-check script
+
+Instead of manually eyeballing 10 games' worth of dates, this script scans `games.json` and flags anything that looks off.
 
 ```bash
 npm run check
 ```
 
-이 스크립트는 다음을 점검해요:
-- 어떤 게임에 **현재 활성 시즌/패치가 없는** 경우 (다음 시즌 등록 누락 가능성)
-- 현재 항목 종료까지 **7일 이내인데 다음 일정이 비어있는** 경우
-- 종료일이 **이미 지났는데 갱신이 안 된** 경우
-- 전체 데이터가 마지막으로 확인된 지 **14일 이상 지난** 경우
+It checks for:
+- Games with **no currently active season/patch** (possible missing next-season entry)
+- A current item ending within **7 days** with no next entry yet
+- End dates that have **already passed** without being updated
+- Data that hasn't been checked in **14+ days**
 
-⚠️ 이 스크립트는 실제로 웹을 검색하거나 자동으로 데이터를 갱신하지 않아요 — games.json 안의 논리적 모순만 잡아줘요. 경고가 뜨면 공식 사이트를 확인하거나 Claude에게 "이 게임들 최신 정보 확인해줘"라고 요청한 뒤 games.json을 직접 수정하면 돼요.
+⚠️ This script never fetches live data or auto-updates anything — it only catches logical gaps in `games.json`. When it flags something, check the official site (or ask Claude to look it up) and edit `games.json` yourself.
 
 ---
 
-## 🖼️ 게임/패치 로고 이미지 넣는 방법
+## 🖼️ Adding game/patch logos
 
-### 1단계 — 이미지 파일 복사
-정사각형 PNG 또는 WebP 이미지를 아래 폴더에 넣습니다:
+### Step 1 — copy image files
+Drop square PNG or WebP images into:
 ```
 public/assets/logos/
 ```
 
-### 2단계 — games.json의 logo 필드에 파일명만 입력
-전체 경로가 아니라 **파일명만** 적으면 돼요:
+### Step 2 — reference by filename only in games.json
+Not a full path — just the filename:
 ```json
 "logo": "d4.png"
 ```
 
-이미지가 없거나 파일이 없으면 자동으로 이모지(`icon` 필드)로 대체돼요. 게임 카드는 **현재 진행 중인 패치/시즌의 로고 → 게임 대표 로고 → 이모지** 순으로 자동 선택돼요.
+Missing or broken images fall back to the emoji in the `icon` field automatically. The card ring picks logos in this order: **current patch/season logo → game's main logo → emoji**.
 
 ---
 
-## 🎨 색상 변경 방법
+## 🎨 Changing colors
 
-`games.json`의 각 게임에서:
+Per game in `games.json`:
 ```json
-"accentColor": "#c0392b",              // 링·글씨 색상 (HEX)
-"glowColor": "rgba(192,57,43,0.35)",   // 카드 발광 색상
-"bgColor": "#1a0a0a"                   // 카드 배경색
+"accentColor": "#c0392b",              // ring/text color (HEX)
+"glowColor": "rgba(192,57,43,0.35)",   // card glow color
+"bgColor": "#1a0a0a"                   // card background
 ```
 
 ---
 
-## 📱 아이폰에서 위젯처럼 보기
+## 📱 View as a widget on iPhone
 
-### 방법 1 — 같은 와이파이에서 Safari 홈화면 추가
+### Option 1 — Same Wi-Fi, add to Safari home screen
 ```bash
-# Mac IP 확인
+# find your Mac's local IP
 ipconfig getifaddr en0
 ```
-아이폰 Safari에서 `http://[IP주소]:5173` 접속 → 공유 버튼 → 홈 화면에 추가
+On your iPhone, open Safari to `http://[your-ip]:5173` → Share → Add to Home Screen.
 
-### 방법 2 — Vercel 배포 (Mac이 꺼져 있어도 접근 가능, 추천)
+### Option 2 — Deploy to Vercel (works even when your Mac is off, recommended)
 ```bash
 npm install -g vercel
 cd season-tracker
 vercel
 ```
-배포된 URL을 아이폰 Safari에서 열고 홈 화면에 추가하면 앱처럼 사용할 수 있고, 알림 기능도 정상 동작해요.
+Open the deployed URL in Safari and add it to your home screen — it'll behave like a real app, and notifications will work properly.
 
 ---
 
-## 📦 빌드 (배포용 파일 생성)
+## 📦 Building for deployment
 
 ```bash
 npm run build
 ```
-`dist/` 폴더에 정적 파일이 생성돼요. Vercel, Netlify, GitHub Pages 등에 업로드하면 돼요.
+Static files land in `dist/`. Upload to Vercel, Netlify, GitHub Pages, or any static host.
 
 ---
 
-## 🗂️ 현재 추적 중인 게임 (10종)
+## 🗂️ Games currently tracked (10)
 
-| 게임 | 로드맵 기준 |
+| Game | Roadmap basis |
 |---|---|
-| Diablo IV | 시즌 |
-| Diablo II: Resurrected | 래더 시즌 |
-| Path of Exile | 리그 |
-| Path of Exile 2 | 리그 |
-| World of Warcraft | 레이드 |
-| Hearthstone | 확장팩 |
-| StarCraft II | 패치 |
-| Overwatch (구 Overwatch 2) | 시즌 |
-| Last Epoch | 사이클(시즌) |
-| Torchlight: Infinite | 시즌 |
+| Diablo IV | Season |
+| Diablo II: Resurrected | Ladder Season |
+| Path of Exile | League |
+| Path of Exile 2 | League |
+| World of Warcraft | Raid |
+| Hearthstone | Expansion |
+| StarCraft II | Patch |
+| Overwatch (formerly Overwatch 2) | Season |
+| Last Epoch | Cycle (Season) |
+| Torchlight: Infinite | Season |
 
 ---
 
-## 🔍 데이터 정확도 안내
+## 🔍 A note on accuracy
 
-이 트래커의 날짜는 각 게임 공식 발표 또는 공신력 있는 커뮤니티 소스(Wowhead, Maxroll 등)를 기반으로 하며, `games.json` 최상단 `_readme.최종_업데이트` 필드와 앱 하단 "정보 갱신" 표시에 마지막 확인 날짜가 나와요. 게임사가 날짜를 변경하거나 새로 공지하면 `games.json`만 다시 열어 수정하면 됩니다.
+Dates come from official announcements or reliable community sources (Wowhead, Maxroll, etc.). The `_readme.최종_업데이트` field at the top of `games.json`, and the "Last updated" line at the bottom of the app, show when the data was last checked. When a developer changes or announces a date, just edit `games.json` directly.
 
-**참고**: "Overwatch 2"는 2026년 2월 공식 리브랜딩으로 숫자 "2"를 떼고 **"Overwatch"**가 되었어요. 이 트래커에서는 호환성을 위해 내부 id는 `ow2`를 유지하되, 표시 이름만 "Overwatch"로 반영했어요.
+**Note**: "Overwatch 2" was officially rebranded to just **"Overwatch"** (dropping the "2") in February 2026. This tracker keeps the internal id `ow2` for compatibility, but displays the name "Overwatch."
+
+---
+
+## 📝 Contributing notes for future updates
+
+Going forward, **this README is maintained in English**. When updating the project (new games, new features, data refreshes), keep this file in English — translate as needed rather than switching languages mid-document.

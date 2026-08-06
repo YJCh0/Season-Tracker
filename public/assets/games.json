@@ -9,7 +9,8 @@
     "starterBuildUrl": "리그/시즌 참고 사이트 링크 (빌드 가이드, 메타 통계, 로그 사이트 등) — 없으면 null",
     "buildLabel": "starterBuildUrl 버튼에 표시할 텍스트, 없으면 기본값 '빌드 가이드 ↗' 사용",
     "참고": "Overwatch 2는 2026년 2월 공식 리브랜딩으로 'Overwatch'가 되었으나, 내부 id는 호환성을 위해 'ow2'를 유지합니다.",
-    "estimate": "startDate가 아직 없지만 커뮤니티/공식 추정 시점이 있는 경우 표시하는 텍스트. 실제 날짜가 아니라 참고용이며 진행률 계산에는 쓰이지 않음. 완전 미확정이면 null."
+    "estimate": "startDate가 아직 없지만 커뮤니티/공식 추정 시점이 있는 경우 표시하는 텍스트. 실제 날짜가 아니라 참고용이며 진행률 계산에는 쓰이지 않음. 완전 미확정이면 null.",
+    "label_en / roadmapLabel_en / sub_en / note_en / estimate_en": "Optional English translations shown when the language toggle is set to EN. Falls back to Korean text if missing."
   },
   "games": [
     {
@@ -41,7 +42,10 @@
           "patchUrl": "https://news.blizzard.com/en-us/article/24271857/diablo-iv-patch-notes",
           "sourceType": "official",
           "starterBuildUrl": null,
-          "estimate": null
+          "estimate": null,
+          "sub_en": "Season 13",
+          "note_en": "Lord of Hatred expansion · New class: Warlock",
+          "estimate_en": null
         },
         {
           "id": "d4-s14",
@@ -57,7 +61,10 @@
           "sourceType": "official",
           "starterBuildUrl": "https://maxroll.gg/d4/tierlist/build-tier-list",
           "buildLabel": "빌드 가이드 ↗",
-          "estimate": null
+          "estimate": null,
+          "sub_en": "Season 14 · Current",
+          "note_en": "Pandemonium Ruptures · Pit Bubble returns in 3.1.2 · Mythics now recyclable",
+          "estimate_en": null
         },
         {
           "id": "d4-s15",
@@ -72,9 +79,14 @@
           "patchUrl": null,
           "sourceType": null,
           "starterBuildUrl": null,
-          "estimate": "9월 예상"
+          "estimate": "9월 예상",
+          "sub_en": "Next Season",
+          "note_en": "Patch 3.2.0 · Character Rebirth feature · PTR live 8/4–8/11 · More reveals expected at BlizzCon",
+          "estimate_en": "Expected September"
         }
-      ]
+      ],
+      "label_en": "S14 · Season of Death Awakening",
+      "roadmapLabel_en": "Season Roadmap"
     },
     {
       "id": "d2r",
@@ -105,7 +117,10 @@
           "patchUrl": "https://news.blizzard.com/en-us/article/24246296/diablo-ii-resurrected-ladder-season-13-coming-soon",
           "sourceType": "official",
           "starterBuildUrl": null,
-          "estimate": null
+          "estimate": null,
+          "sub_en": "Reign of the Warlock",
+          "note_en": "New Warlock class · Patch v3.1",
+          "estimate_en": null
         },
         {
           "id": "d2r-s14",
@@ -121,7 +136,10 @@
           "sourceType": "official",
           "starterBuildUrl": "https://maxroll.gg/d2/tierlist/ladder-starter-tier-list",
           "buildLabel": "빌드 가이드 ↗",
-          "estimate": null
+          "estimate": null,
+          "sub_en": "Current Season",
+          "note_en": "Patch v3.2 · Terror Zone overhaul · Sunder Charm adjustments",
+          "estimate_en": null
         },
         {
           "id": "d2r-s15",
@@ -136,9 +154,14 @@
           "patchUrl": null,
           "sourceType": null,
           "starterBuildUrl": null,
-          "estimate": "8월 28일 또는 9월 4일 예상"
+          "estimate": "8월 28일 또는 9월 4일 예상",
+          "sub_en": "Next Season",
+          "note_en": "Patch 3.3 expected · Exact date not yet announced (community prediction)",
+          "estimate_en": "Expected Aug 28 or Sep 4"
         }
-      ]
+      ],
+      "label_en": "Ladder Season 14",
+      "roadmapLabel_en": "Ladder Season Roadmap"
     },
     {
       "id": "poe1",
@@ -170,7 +193,10 @@
           "sourceType": "official",
           "starterBuildUrl": "https://maxroll.gg/poe/tierlist/starter-builds",
           "buildLabel": "빌드 가이드 ↗",
-          "estimate": null
+          "estimate": null,
+          "sub_en": "3.28 League",
+          "note_en": "Djinn & Wish mechanics, Reliquarian",
+          "estimate_en": null
         },
         {
           "id": "poe1-ancestors",
@@ -185,7 +211,10 @@
           "patchUrl": "https://www.pathofexile.com/forum/view-thread/3968867",
           "sourceType": "official",
           "starterBuildUrl": null,
-          "estimate": null
+          "estimate": null,
+          "sub_en": "Event League (3 weeks, limited-time)",
+          "note_en": "Trial of the Ancestors returns · Phrecia Ascendancies",
+          "estimate_en": null
         },
         {
           "id": "poe1-329",
@@ -200,7 +229,10 @@
           "patchUrl": "https://www.pathofexile.com/forum/view-forum/patch-notes",
           "sourceType": "official",
           "starterBuildUrl": null,
-          "estimate": null
+          "estimate": null,
+          "sub_en": "3.29 League · Current",
+          "note_en": "Deep-sea Voyage exploration · Mercenaries of Trarthus made core · Abyss/Legion/socket rework",
+          "estimate_en": null
         },
         {
           "id": "poe1-330",
@@ -216,9 +248,14 @@
           "sourceType": null,
           "starterBuildUrl": null,
           "buildLabel": null,
-          "estimate": null
+          "estimate": null,
+          "sub_en": "Next League",
+          "note_en": "Date and name not yet announced",
+          "estimate_en": null
         }
-      ]
+      ],
+      "label_en": "3.29 · Curse of the Allflame",
+      "roadmapLabel_en": "League Roadmap"
     },
     {
       "id": "poe2",
@@ -250,7 +287,10 @@
           "sourceType": "official",
           "starterBuildUrl": "https://maxroll.gg/poe2/build-guides/starter-guide",
           "buildLabel": "빌드 가이드 ↗",
-          "estimate": null
+          "estimate": null,
+          "sub_en": "0.5.0 League · Current patch 0.5.4c",
+          "note_en": "Runes of Aldur · 2 new classes · Atlas rework",
+          "estimate_en": null
         },
         {
           "id": "poe2-055",
@@ -266,7 +306,10 @@
           "patchUrl": null,
           "sourceType": null,
           "starterBuildUrl": null,
-          "buildLabel": null
+          "buildLabel": null,
+          "sub_en": "Short event (~1 month)",
+          "note_en": "A full 0.6 update was cancelled · Short event focused on balance and economy reset",
+          "estimate_en": "Expected early September"
         },
         {
           "id": "poe2-100",
@@ -281,9 +324,14 @@
           "patchUrl": null,
           "sourceType": null,
           "starterBuildUrl": null,
-          "estimate": "11월 ExileCon 이후 (연내)"
+          "estimate": "11월 ExileCon 이후 (연내)",
+          "sub_en": "Early Access ends",
+          "note_en": "Transition to free-to-play (F2P) · ExileCon 2026 reveal Nov 7–8 (New Zealand) · Exact date not yet announced",
+          "estimate_en": "After ExileCon in November (later this year)"
         }
-      ]
+      ],
+      "label_en": "0.5.0 · Return of the Ancients",
+      "roadmapLabel_en": "League Roadmap"
     },
     {
       "id": "wow",
@@ -315,7 +363,10 @@
           "sourceType": "community",
           "starterBuildUrl": "https://www.archon.gg/wow/tier-list/dps-rankings/raid/mythic/all-bosses",
           "buildLabel": "DPS 티어리스트 ↗",
-          "estimate": null
+          "estimate": null,
+          "sub_en": "S1 Raid 1 · 6 bosses",
+          "note_en": "Direct confrontation with Xal'atath",
+          "estimate_en": null
         },
         {
           "id": "wow-dreamrift",
@@ -331,7 +382,10 @@
           "sourceType": "community",
           "starterBuildUrl": "https://www.archon.gg/wow/tier-list/dps-rankings/raid/mythic/all-bosses",
           "buildLabel": "DPS 티어리스트 ↗",
-          "estimate": null
+          "estimate": null,
+          "sub_en": "S1 Raid 2 · 1 boss",
+          "note_en": "Chimaerus, the Undreamt God",
+          "estimate_en": null
         },
         {
           "id": "wow-quel",
@@ -347,7 +401,10 @@
           "sourceType": "community",
           "starterBuildUrl": "https://www.archon.gg/wow/tier-list/dps-rankings/raid/mythic/all-bosses",
           "buildLabel": "DPS 티어리스트 ↗",
-          "estimate": null
+          "estimate": null,
+          "sub_en": "S1 Raid 3 · 2 bosses",
+          "note_en": "Defending the Sunwell · Patch 12.0.7 Revelations",
+          "estimate_en": null
         },
         {
           "id": "wow-coiled-isle",
@@ -363,7 +420,10 @@
           "sourceType": "community",
           "starterBuildUrl": null,
           "buildLabel": null,
-          "estimate": null
+          "estimate": null,
+          "sub_en": "12.1 Content Patch",
+          "note_en": "New zone The Coiled Isle · Altar of Fangs dungeon · Lairs · 3 new Delves",
+          "estimate_en": null
         },
         {
           "id": "wow-venomous",
@@ -379,9 +439,14 @@
           "sourceType": "community",
           "starterBuildUrl": "https://www.archon.gg/wow/tier-list/dps-rankings/raid/mythic/all-bosses",
           "buildLabel": "DPS 티어리스트 ↗",
-          "estimate": null
+          "estimate": null,
+          "sub_en": "S2 Raid · 8 bosses",
+          "note_en": "Patch 12.1 Curse of Ula'tek lands 8/11 · Raid, Season 2, and M+ rotation open 8/18",
+          "estimate_en": null
         }
-      ]
+      ],
+      "label_en": "Midnight S1 — Revelations",
+      "roadmapLabel_en": "Raid Roadmap"
     },
     {
       "id": "hs",
@@ -413,7 +478,10 @@
           "sourceType": "official",
           "starterBuildUrl": "https://www.hsguru.com/meta?format=2&rank=top_legend",
           "buildLabel": "메타 통계 ↗",
-          "estimate": null
+          "estimate": null,
+          "sub_en": "1st expansion",
+          "note_en": "Herald · Shatter · Colossal · Deathwing",
+          "estimate_en": null
         },
         {
           "id": "hs-violet",
@@ -429,7 +497,10 @@
           "sourceType": "official",
           "starterBuildUrl": "https://www.hsguru.com/meta?format=2&rank=top_legend",
           "buildLabel": "메타 통계 ↗",
-          "estimate": null
+          "estimate": null,
+          "sub_en": "2nd expansion · Current",
+          "note_en": "Prepare · Rulebreaker · Disguised · Vanessa VanCleef",
+          "estimate_en": null
         },
         {
           "id": "hs-exp3",
@@ -444,9 +515,14 @@
           "patchUrl": null,
           "sourceType": null,
           "starterBuildUrl": null,
-          "estimate": null
+          "estimate": null,
+          "sub_en": "Year of the Scarab",
+          "note_en": "Date and name not yet announced",
+          "estimate_en": null
         }
-      ]
+      ],
+      "label_en": "Year of the Scarab",
+      "roadmapLabel_en": "Expansion Roadmap"
     },
     {
       "id": "sc2",
@@ -477,7 +553,10 @@
           "patchUrl": "https://news.blizzard.com/en-us/starcraft2",
           "sourceType": "official",
           "starterBuildUrl": null,
-          "estimate": null
+          "estimate": null,
+          "sub_en": "2026 Season 1 Ladder",
+          "note_en": "GSL Season 1 & 2 underway · Legacy of the Void",
+          "estimate_en": null
         },
         {
           "id": "sc2-5016",
@@ -492,7 +571,10 @@
           "patchUrl": "https://news.blizzard.com/en-us/starcraft2",
           "sourceType": "official",
           "starterBuildUrl": null,
-          "estimate": null
+          "estimate": null,
+          "sub_en": "Current Patch · 2026 Season 2",
+          "note_en": "Starting workers reduced 12→8 · Warpgate rework · 6/30 balance hotfix",
+          "estimate_en": null
         },
         {
           "id": "sc2-next",
@@ -507,9 +589,14 @@
           "patchUrl": null,
           "sourceType": null,
           "starterBuildUrl": null,
-          "estimate": null
+          "estimate": null,
+          "sub_en": "Season 3 upcoming",
+          "note_en": "Date not yet announced",
+          "estimate_en": null
         }
-      ]
+      ],
+      "label_en": "2026 Season 2 Ladder",
+      "roadmapLabel_en": "Patch Roadmap"
     },
     {
       "id": "ow2",
@@ -540,7 +627,10 @@
           "patchUrl": "https://overwatch.blizzard.com/en-us/news/patch-notes/",
           "sourceType": "official",
           "starterBuildUrl": null,
-          "estimate": null
+          "estimate": null,
+          "sub_en": "Reign of Talon Season 1",
+          "note_en": "5 new heroes launched simultaneously · Story arc begins",
+          "estimate_en": null
         },
         {
           "id": "ow2-s2",
@@ -555,7 +645,10 @@
           "patchUrl": "https://overwatch.blizzard.com/en-us/news/patch-notes/",
           "sourceType": "official",
           "starterBuildUrl": null,
-          "estimate": null
+          "estimate": null,
+          "sub_en": "Reign of Talon Season 2",
+          "note_en": "New hero Sierra · Operation Grand Mesa",
+          "estimate_en": null
         },
         {
           "id": "ow2-s3",
@@ -570,7 +663,10 @@
           "patchUrl": "https://overwatch.blizzard.com/en-us/news/patch-notes/",
           "sourceType": "official",
           "starterBuildUrl": null,
-          "estimate": null
+          "estimate": null,
+          "sub_en": "Reign of Talon Season 3 · Current",
+          "note_en": "New hero Shion · Community Crafted mode",
+          "estimate_en": null
         },
         {
           "id": "ow2-s4",
@@ -585,9 +681,14 @@
           "patchUrl": "https://overwatch.blizzard.com/en-us/news/patch-notes/",
           "sourceType": "official",
           "starterBuildUrl": null,
-          "estimate": null
+          "estimate": null,
+          "sub_en": "Next Season",
+          "note_en": "New hero D.Mon (Tank, expected) · Busan, Eichenwalde, Paraíso map reworks",
+          "estimate_en": null
         }
-      ]
+      ],
+      "label_en": "Reign of Talon S3 · Into the Tiger's Den",
+      "roadmapLabel_en": "Season Roadmap"
     },
     {
       "id": "le",
@@ -619,7 +720,10 @@
           "sourceType": "community",
           "starterBuildUrl": "https://maxroll.gg/last-epoch/tierlist/starter-build-tier-list",
           "buildLabel": "빌드 가이드 ↗",
-          "estimate": null
+          "estimate": null,
+          "sub_en": "Season 4 · Current",
+          "note_en": "Omen Windows · Echo Chains · Rune of Corruption",
+          "estimate_en": null
         },
         {
           "id": "le-s5",
@@ -634,9 +738,14 @@
           "patchUrl": null,
           "sourceType": null,
           "starterBuildUrl": null,
-          "estimate": "8월 말~9월 초 예상"
+          "estimate": "8월 말~9월 초 예상",
+          "sub_en": "Next Season",
+          "note_en": "Last Epoch: Orobyss expansion teased · Exact date unconfirmed",
+          "estimate_en": "Expected late August–early September"
         }
-      ]
+      ],
+      "label_en": "Season 4 · Shattered Omens",
+      "roadmapLabel_en": "Cycle Roadmap"
     },
     {
       "id": "tli",
@@ -668,7 +777,10 @@
           "sourceType": "official",
           "starterBuildUrl": "https://tlidb.com/",
           "buildLabel": "빌드 DB ↗",
-          "estimate": null
+          "estimate": null,
+          "sub_en": "SS12 · Current",
+          "note_en": "Lunar Harp Tuning · Licorice Note · Memory Revival",
+          "estimate_en": null
         },
         {
           "id": "tli-afterlight",
@@ -684,7 +796,10 @@
           "sourceType": "official",
           "starterBuildUrl": null,
           "buildLabel": null,
-          "estimate": null
+          "estimate": null,
+          "sub_en": "SS13 · Current",
+          "note_en": "New hero Tide Whisper Selina (Water) · TorchCon 2026 held in Shanghai",
+          "estimate_en": null
         },
         {
           "id": "tli-ss14",
@@ -700,9 +815,14 @@
           "sourceType": null,
           "starterBuildUrl": null,
           "buildLabel": null,
-          "estimate": null
+          "estimate": null,
+          "sub_en": "Season after next",
+          "note_en": "Date and name not yet announced",
+          "estimate_en": null
         }
-      ]
+      ],
+      "label_en": "SS13 · Afterlight",
+      "roadmapLabel_en": "Season Roadmap"
     }
   ]
 }
